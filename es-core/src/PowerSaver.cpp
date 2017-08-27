@@ -25,7 +25,7 @@ void PowerSaver::updateTimeouts()
 {
 	mScreenSaverTimeout = (unsigned int) Settings::getInstance()->getInt("ScreenSaverTime");
 	mScreenSaverTimeout = mScreenSaverTimeout > 0 ? mScreenSaverTimeout - getMode() : -1;
-	mPlayNextTimeout = Settings::getInstance()->getInt("ScreenSaverSwapVideoTimeout") - getMode();
+	mPlayNextTimeout = 30000 - getMode();
 }
 
 PowerSaver::mode PowerSaver::getMode()

@@ -94,16 +94,11 @@ void Settings::setDefaults()
 		mBoolMap["ScreenSaverOmxPlayer"] = false;
 	#endif
 
-	mIntMap["ScreenSaverSwapVideoTimeout"] = 30000;
-
 	mBoolMap["VideoAudio"] = true;
 	mBoolMap["CaptionsCompatibility"] = true;
 	// Audio out device for Video playback using OMX player.
 	mStringMap["OMXAudioDev"] = "both";
 	mStringMap["CollectionSystemsAuto"] = "";
-	mStringMap["CollectionSystemsCustom"] = "";
-	mBoolMap["SortAllSystems"] = false;
-	mBoolMap["UseCustomCollectionsSystem"] = true;
 
 	// Audio out device for volume control
 	#ifdef _RPI_

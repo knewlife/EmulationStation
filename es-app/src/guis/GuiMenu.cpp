@@ -234,10 +234,7 @@ GuiMenu::GuiMenu(Window* window) : GuiComponent(window), mMenu(window, "MAIN MEN
 					Settings::getInstance()->setString("ThemeSet", theme_set->getSelected());
 
 					if(needReload)
-					{
-						CollectionSystemManager::get()->updateSystemsList();
 						ViewController::get()->reloadAll(); // TODO - replace this with some sort of signal-based implementation
-					}
 				});
 			}
 
@@ -421,7 +418,7 @@ GuiMenu::GuiMenu(Window* window) : GuiComponent(window), mMenu(window, "MAIN MEN
 	mVersion.setFont(Font::get(FONT_SIZE_SMALL));
 	mVersion.setColor(0x5E5E5EFF);
 	mVersion.setText("EMULATIONSTATION V" + strToUpper(PROGRAM_VERSION_STRING));
-	mVersion.setHorizontalAlignment(ALIGN_CENTER);
+	mVersion.setAlignment(ALIGN_CENTER);
 
 	addChild(&mMenu);
 	addChild(&mVersion);

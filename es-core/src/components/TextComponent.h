@@ -23,8 +23,7 @@ public:
 	void onSizeChanged() override;
 	void setText(const std::string& text);
 	void setColor(unsigned int color);
-	void setHorizontalAlignment(Alignment align);
-	void setVerticalAlignment(Alignment align);
+	void setAlignment(Alignment align);
 	void setLineSpacing(float spacing);
 	void setBackgroundColor(unsigned int color);
 	void setRenderBackground(bool render);
@@ -58,8 +57,7 @@ private:
 	Eigen::Matrix<bool, 1, 2> mAutoCalcExtent;
 	std::string mText;
 	std::shared_ptr<TextCache> mTextCache;
-	Alignment mHorizontalAlignment;
-	Alignment mVerticalAlignment;
+	Alignment mAlignment;
 	float mLineSpacing;
 };
 

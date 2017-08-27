@@ -25,9 +25,7 @@ enum Alignment
 {
 	ALIGN_LEFT,
 	ALIGN_CENTER, // centers both horizontally and vertically
-	ALIGN_RIGHT,
-	ALIGN_TOP,
-	ALIGN_BOTTOM
+	ALIGN_RIGHT
 };
 
 //A TrueType Font renderer that uses FreeType and OpenGL.

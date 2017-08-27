@@ -72,7 +72,6 @@ void ViewController::goToSystemView(SystemData* system)
 
 	systemList->goToSystem(system, false);
 	mCurrentView = systemList;
-	mCurrentView->onShow();
 	PowerSaver::setState(true);
 
 	playViewTransition();
@@ -239,12 +238,15 @@ void ViewController::launch(FileData* game, Eigen::Vector3f center)
 	{
 		// fade out, launch game, fade back in
 		auto fadeFunc = [this](float t) {
+			//t -= 1;
+			//mFadeOpacity = lerp<float>(0.0f, 1.0f, t*t*t + 1);
 			mFadeOpacity = lerp<float>(0.0f, 1.0f, t);
 		};
 		setAnimation(new LambdaAnimation(fadeFunc, 800), 0, [this, game, fadeFunc]
 		{
 			game->launchGame(mWindow);
-			setAnimation(new LambdaAnimation(fadeFunc, 800), 0, [this] { mLockInput = false; }, true);
+			mLockInput = false;
+			setAnimation(new LambdaAnimation(fadeFunc, 800), 0, nullptr, true);
 			this->onFileChanged(game, FILE_METADATA_CHANGED);
 		});
 	} else if (transition_style == "slide"){
@@ -253,28 +255,19 @@ void ViewController::launch(FileData* game, Eigen::Vector3f center)
 		{
 			game->launchGame(mWindow);
 			mCamera = origCamera;
-			setAnimation(new LaunchAnimation(mCamera, mFadeOpacity, center, 600), 0, [this] { mLockInput = false; }, true);
+			mLockInput = false;
+			setAnimation(new LaunchAnimation(mCamera, mFadeOpacity, center, 600), 0, nullptr, true);
 			this->onFileChanged(game, FILE_METADATA_CHANGED);
 		});
-	} else { // instant
+	} else {
 		setAnimation(new LaunchAnimation(mCamera, mFadeOpacity, center, 10), 0, [this, origCamera, center, game]
 		{
 			game->launchGame(mWindow);
 			mCamera = origCamera;
-			setAnimation(new LaunchAnimation(mCamera, mFadeOpacity, center, 10), 0, [this] { mLockInput = false; }, true);
+			mLockInput = false;
+			setAnimation(new LaunchAnimation(mCamera, mFadeOpacity, center, 10), 0, nullptr, true);
 			this->onFileChanged(game, FILE_METADATA_CHANGED);
 		});
-	}
-}
-
-void ViewController::removeGameListView(SystemData* system)
-{
-	//if we already made one, return that one
-	auto exists = mGameListViews.find(system);
-	if(exists != mGameListViews.end())
-	{
-		exists->second.reset();
-		mGameListViews.erase(system);
 	}
 }
 
